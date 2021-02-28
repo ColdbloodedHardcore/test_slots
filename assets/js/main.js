@@ -5,6 +5,7 @@ const svg = document.querySelectorAll(".icon");
 const icons = [...svg];
 const iconHeight = icons[0].clientHeight;
 const getRandomPX = 0 - iconHeight * icons.length;
+const adjustment = iconHeight - 30;
 
 const getRandomNumber = (min, max) =>
   Math.floor(Math.random() * (max - min) + min);
@@ -36,13 +37,15 @@ const onStartSpin = () => {
 // Stop Spin
 const onStopSpin = () => {
   const random = getRandomNumber(1, 40);
-  const getRandomPXBeforeStop = 0 - iconHeight * random + iconHeight / 2;
+  const randomHeight = iconHeight * random;
+  const getRandomStop = 0 - randomHeight + adjustment;
 
+  // Slow stop
   tl.to(icons, 3, {
-    y: getRandomPXBeforeStop,
+    y: getRandomStop,
     ease: Linear.easeNone,
   })
-    .to(icons, 10, { y: getRandomPXBeforeStop, ease: Linear.easeNone })
+    .to(icons, 10, { y: getRandomStop, ease: Linear.easeNone })
     .to(icons, 20, {
       y: icons[random],
       ease: Linear.easeNone,
@@ -53,7 +56,7 @@ const onStopSpin = () => {
     tl.kill();
     // Reinit Timeline
     tl.eventCallback("onComplete", initTimeline());
-  }, 2000);
+  }, 2500);
 };
 
 startButton.addEventListener("click", onStartSpin);
