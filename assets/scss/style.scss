@@ -28,7 +28,8 @@ button {
   text-align: center;
   color: $white;
 
-  &:active {
+  &:active,
+  &:disabled {
     transform: translateY(10px);
     box-shadow: none !important;
   }
@@ -67,6 +68,7 @@ img {
     margin: 0 auto;
 
     .icon {
+      display: block;
       width: 190px;
       height: 190px;
     }

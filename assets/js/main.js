@@ -4,59 +4,41 @@ const stopButton = document.querySelector(".stop");
 const svg = document.querySelectorAll(".icon");
 const icons = [...svg];
 const iconHeight = icons[0].clientHeight;
-const getRandomPX = 0 - iconHeight * icons.length;
-const adjustment = iconHeight - 30;
 
 const getRandomNumber = (min, max) =>
   Math.floor(Math.random() * (max - min) + min);
 
-// Init Timeline
-let tl;
-const initTimeline = () => (tl = new TimelineMax({ paused: true, repeat: -1 }));
-initTimeline();
-
 // Start Spin
 const onStartSpin = () => {
-  if (tl.isActive()) return;
+  // Disable button
+  startButton.disabled = true;
 
-  tl.fromTo(
+  TweenMax.fromTo(
     icons,
     0.1,
     {
       y: 0,
     },
     {
-      y: getRandomPX,
+      y: 0 - iconHeight * icons.length,
       ease: Linear.easeNone,
     }
-  );
-
-  tl.play();
+  ).repeat(-1);
 };
 
 // Stop Spin
 const onStopSpin = () => {
   const random = getRandomNumber(1, 40);
-  const randomHeight = iconHeight * random;
-  const getRandomStop = 0 - randomHeight + adjustment;
 
   // Slow stop
-  tl.to(icons, 3, {
-    y: getRandomStop,
-    ease: Linear.easeNone,
-  })
-    .to(icons, 10, { y: getRandomStop, ease: Linear.easeNone })
-    .to(icons, 20, {
-      y: icons[random],
-      ease: Linear.easeNone,
-    });
+  TweenMax.to(icons, 1.3, {
+    y: 0 - iconHeight * random,
+    ease: Linear.ease,
+  });
 
   setTimeout(() => {
-    // Destroy Timeline
-    tl.kill();
-    // Reinit Timeline
-    tl.eventCallback("onComplete", initTimeline());
-  }, 2500);
+    startButton.disabled = false;
+  }, 1000);
 };
 
 startButton.addEventListener("click", onStartSpin);

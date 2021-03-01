@@ -25,7 +25,7 @@ button {
   line-height: 23px;
   text-align: center;
   color: #fff; }
-  button:active {
+  button:active, button:disabled {
     -webkit-transform: translateY(10px);
     -ms-transform: translateY(10px);
     transform: translateY(10px);
@@ -57,6 +57,7 @@ img {
     border: 5px solid #703d1f;
     margin: 0 auto; }
     .slots-container .icon {
+      display: block;
       width: 190px;
       height: 190px; }
   .slots-center {
