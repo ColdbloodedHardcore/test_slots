@@ -10,8 +10,9 @@ const getRandomNumber = (min, max) =>
 
 // Start Spin
 const onStartSpin = () => {
-  // Disable button
+  // Disable buttons
   startButton.disabled = true;
+  stopButton.disabled = false;
 
   TweenMax.fromTo(
     icons,
@@ -29,6 +30,7 @@ const onStartSpin = () => {
 // Stop Spin
 const onStopSpin = () => {
   const random = getRandomNumber(1, 40);
+  stopButton.disabled = true;
 
   // Slow stop
   TweenMax.to(icons, 1.3, {
